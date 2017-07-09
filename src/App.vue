@@ -7,9 +7,13 @@
       <router-link :to="{ path: '/user' }"  tag="li">user</router-link>
     </ul>
 
-    <router-view name="slide" style="position: absolute"></router-view>
-    <router-view></router-view>
+    <!--<router-view name="slide" style="position: absolute"></router-view>-->
 
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+
+     <div>可以监控路由的元信息，在页面中做出功能{{$route.meta}}</div>
   </div>
 </template>
 
@@ -25,6 +29,15 @@ export default {
 </script>
 
 <style>
+  .fade-enter{
+    opacity: 0
+  }
+  .fade-enter-active{
+    transition: opacity 1s
+  }
+  .fade-enter-to{
+    opacity: 1
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

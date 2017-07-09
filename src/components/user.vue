@@ -7,7 +7,7 @@
       <router-link
         exact v-for="(item,index) in userlist"
                     key="index"
-                   :to="{ path: '/user/'+item.tip+'/'+item.id }"
+                   :to="{ path: '/user/'+item.tip+'/'+item.id,query:{info:'follow'} }"
                    tag="li">
         {{item.userName}}
       </router-link>
@@ -17,9 +17,20 @@
       <p>性别：{{userinfo.sex}}</p>
       <p>爱好：{{userinfo.hobby}}</p>
     </div>
-
     <hr/>
-<router-view></router-view>
+    <router-view></router-view>
+    <hr/>
+
+    <div v-if="userinfo.userName">
+      <!--<router-link exact to="?info=follow">他的关注</router-link>
+      <router-link exact to="?info=share">他的分享</router-link>-->
+      <router-link exact :to="{path:'',query:{info:'follow'}}">他的关注</router-link>
+      <router-link exact :to="{path:'',query:{info:'share'}}">他的分享</router-link>
+      <div>
+        {{$route.query}}
+      </div>
+    </div>
+
   </div>
 </template>
 

@@ -11,9 +11,11 @@ import study from '@/views/study'
 import work from '@/views/work'
 import slide from '@/views/slide'
 
+import login from '@/views/login'
+
 Vue.use(Router);
 
-export default new Router({
+ let router=new Router({
   mode: 'history',
   scrollBehavior:function (to, from, savedPosition) {
     if (savedPosition) {
@@ -25,11 +27,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: home
+      component: home,
+      meta: { index: 1 ,title:"home"}//路由元信息
     },
     {
       path: '/user/:vip?/:userId?',//动态路由形式
-      component: user
+      component: user,
+      meta: { index: 4 }
     },
     {
       path: '/home',
@@ -38,8 +42,13 @@ export default new Router({
       alias:"Home"
     },
     {
+      path: '/login',
+      component: login,
+    },
+    {
       path: '/document',
       name: 'Document',
+      meta: { index: 2 ,isLogin:true,title:"docuemnt"},
       components:{
         default: document,
         slide:slide
@@ -60,7 +69,8 @@ export default new Router({
         },
         {
           path: '',
-          component: hobby
+          component: hobby,
+          meta: { index: 3 ,title:"about"}
         }
       ]
     },
@@ -75,3 +85,24 @@ export default new Router({
     }
   ]
 })
+export default router
+
+//全局的导航钩子函数
+/*router.beforeEach((to, from, next) => {
+  console.log(to);
+  if(to.meta.isLogin){//如果当前页是需要登录，则重定向到登录页
+      next("/login")
+  }else{
+    next()
+  }
+});*/
+//进入路由后改变titie
+/*router.afterEach((to, from) => {;
+  if(to.meta.title){//如果当前页是需要登录，则重定向到登录页
+   window.document.title=to.meta.title
+  }else{
+    window.document.title="title"
+  }
+});*/
+
+
